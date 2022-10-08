@@ -10,7 +10,8 @@ int main(int argc, char *argv[])
     QApplication app(argc, argv);
 
     // MainWindow window;
-    WidgetDemo window;
+    // WidgetDemo window;
+    LayoutDemo window;
 
     window.resize(150, 150);
     window.show();
