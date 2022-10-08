@@ -12,6 +12,7 @@
 
 MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent)
 {
+    setWindowTitle("MainWindow Demo");
 
     QWidget *container = new QWidget(this);
     QGridLayout *grid = new QGridLayout();
