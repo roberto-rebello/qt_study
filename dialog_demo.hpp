@@ -13,4 +13,5 @@ private slots:
     void custom_button_pressed();
     void message_button_pressed();
     void default_button_pressed();
+    void qdialog_button_pressed();
 };

@@ -2,12 +2,20 @@
 #include "custom_dialog.hpp"
 
 #include <iostream>
+#include <unistd.h>
 
 #include <QVBoxLayout>
 
 #include <QPushButton>
 #include <QDialog>
 #include <QMessageBox>
+
+#include <QFontDialog>
+// #include <QPrintDialog>
+#include <QProgressDialog>
+#include <QColorDialog>
+#include <QInputDialog>
+#include <QFileDialog>
 
 DialogDemo::DialogDemo(QWidget *parent) : QMainWindow(parent)
 {
@@ -34,6 +42,10 @@ DialogDemo::DialogDemo(QWidget *parent) : QMainWindow(parent)
     QPushButton *default_btn = new QPushButton("MessageBox Demo");
     connect(default_btn, SIGNAL(pressed()), this, SLOT(default_button_pressed()));
     layout->addWidget(default_btn);
+
+    QPushButton *dialog = new QPushButton("Ready QDialog Demo");
+    connect(dialog, SIGNAL(pressed()), this, SLOT(qdialog_button_pressed()));
+    layout->addWidget(dialog);
 }
 
 void DialogDemo::basic_button_pressed()
@@ -79,21 +91,42 @@ void DialogDemo::default_button_pressed()
 {
     std::cout << "DefaultButton pressed" << std::endl;
 
-    QMessageBox *about = new QMessageBox(this);
-    about->about(this, "About MessageBox", "This is an example of a default 'About' MessageBox");
+    QMessageBox::about(this, "About MessageBox", "This is an example of a default 'About' MessageBox");
 
-    QMessageBox *critical = new QMessageBox(this);
-    critical->critical(this, "Critical MessageBox", "This is an example of a default 'Critical' MessageBox");
+    QMessageBox::critical(this, "Critical MessageBox", "This is an example of a default 'Critical' MessageBox");
 
-    QMessageBox *information = new QMessageBox(this);
-    information->information(this, "Information MessageBox", "This is an example of a default 'Information' MessageBox");
+    QMessageBox::information(this, "Information MessageBox", "This is an example of a default 'Information' MessageBox");
 
-    QMessageBox *question = new QMessageBox(this);
-    question->question(this, "Question MessageBox", "This is an example of a default 'Question' MessageBox");
+    QMessageBox::question(this, "Question MessageBox", "This is an example of a default 'Question' MessageBox");
 
-    QMessageBox *warning = new QMessageBox(this);
-    warning->warning(this, "Warning MessageBox", "This is an example of a default 'Warning' MessageBox");
+    QMessageBox::warning(this, "Warning MessageBox", "This is an example of a default 'Warning' MessageBox");
 
-    QMessageBox *aboutQt = new QMessageBox(this);
-    aboutQt->aboutQt(this, "AboutQt MessageBox");
+    QMessageBox::aboutQt(this, "AboutQt MessageBox");
+}
+
+void DialogDemo::qdialog_button_pressed()
+{
+    bool ok;
+    QFont font = QFontDialog::getFont(&ok, QFont("Helvetica [Cronyx]", 10), this);
+
+    // QPrintDialog printer(this);
+
+    // QProgressDialog *pb = new QProgressDialog("Progressbar example", "Cancel", 0, 100, this);
+    // for (uint8_t step = 0; step <= 100; step++)
+    // {
+    //     pb->setValue(step);
+    //     usleep(250000);
+    // }
+
+    QColorDialog *color = new QColorDialog(this);
+    color->exec();
+
+    QFileDialog *file = new QFileDialog(this);
+    file->exec();
+
+    QInputDialog::getInt(this, "QInputDialog::getInt()", "Get Int");
+    QInputDialog::getDouble(this, "QInputDialog::getDouble()", "Get Double");
+    QInputDialog::getItem(this, "QInputDialog::getItem()", "Get Item", QStringList({"Option 1", "Option 2", "Option 3", "Option 4"}));
+    QInputDialog::getText(this, "QInputDialog::getText()", "Get Text");
+    QInputDialog::getMultiLineText(this, "QInputDialog::getMultiLineText()", "Get MultiLineText");
 }
