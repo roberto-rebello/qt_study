@@ -4,6 +4,7 @@
 #include "widget_demo.hpp"
 #include "layout_demo.hpp"
 #include "toolbar_demo.hpp"
+#include "dialog_demo.hpp"
 
 int main(int argc, char *argv[])
 {
@@ -25,6 +26,10 @@ int main(int argc, char *argv[])
     ToolbarDemo toolbar;
     toolbar.resize(150, 150);
     toolbar.show();
+
+    DialogDemo dialog;
+    dialog.resize(150, 150);
+    dialog.show();
 
     return app.exec();
 }
