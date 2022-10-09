@@ -15,7 +15,7 @@
 ToolbarDemo::ToolbarDemo(QWidget *parent) : QMainWindow(parent)
 {
 
-    setWindowTitle("Toolbar Demo");
+    setWindowTitle("Toolbar and Menu Demo");
 
     QVBoxLayout *layout = new QVBoxLayout();
     QWidget *container = new QWidget(this);
