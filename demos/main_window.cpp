@@ -83,7 +83,7 @@ void MainWindow::mouseReleaseEvent(QMouseEvent *e)
 }
 void MainWindow::mouseMoveEvent(QMouseEvent *e)
 {
-    QPointF point = e->position();
+    QPointF point = e->globalPos();
     std::cout << "Move Event"
               << " (" << point.x() << "," << point.y() << ")" << std::endl;
 }
