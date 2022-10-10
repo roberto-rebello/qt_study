@@ -5,34 +5,48 @@
 
 #include <QListView>
 #include <QPushButton>
-#include <QLineEdit>
 
 TodoList::TodoList(QWidget *parent) : QMainWindow(parent)
 {
     setWindowTitle("Todo");
+
+    m_model = new TodoModel(this);
 
     QVBoxLayout *mainLayout = new QVBoxLayout();
     QWidget *container = new QWidget(this);
     container->setLayout(mainLayout);
     setCentralWidget(container);
 
-    QListView *todoList = new QListView(this);
-    mainLayout->addWidget(todoList);
-    
+    QListView *todoView = new QListView(this);
+    todoView->setSelectionMode(QAbstractItemView::SelectionMode::SingleSelection);
+    todoView->setModel(m_model);
+    mainLayout->addWidget(todoView);
+
     QHBoxLayout *buttonLayout = new QHBoxLayout();
-    QPushButton *deleteBtn = new QPushButton("Delete", this);
-    QPushButton *completeBtn = new QPushButton("Complete", this);
-    buttonLayout->addWidget(deleteBtn);
-    buttonLayout->addWidget(completeBtn);
+    QPushButton *deleteButton = new QPushButton("Delete", this);
+    connect(deleteButton, SIGNAL(pressed()), this, SLOT(delete_btn()));
+    QPushButton *completeButton = new QPushButton("Complete", this);
+    connect(completeButton, SIGNAL(pressed()), this, SLOT(complete_btn()));
+    buttonLayout->addWidget(deleteButton);
+    buttonLayout->addWidget(completeButton);
     mainLayout->addLayout(buttonLayout);
 
-    QLineEdit *newTodo = new QLineEdit(this);
-    mainLayout->addWidget(newTodo);
+    m_todoEdit = new QLineEdit(this);
+    mainLayout->addWidget(m_todoEdit);
 
-    QPushButton *addTodoBtn = new QPushButton("Add Todo", this);
-    mainLayout->addWidget(addTodoBtn);
+    QPushButton *addButton = new QPushButton("Add Todo", this);
+    connect(addButton, SIGNAL(pressed()), this, SLOT(add_btn()));
+    mainLayout->addWidget(addButton);
 }
 
-TodoList::~TodoList()
+void TodoList::add_btn()
+{
+}
+
+void TodoList::delete_btn()
+{
+}
+
+void TodoList::complete_btn()
 {
 }
