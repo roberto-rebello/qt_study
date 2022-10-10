@@ -2,6 +2,7 @@
 
 #include "todo_model.hpp"
 
+#include <QListView>
 #include <QLineEdit>
 
 class TodoList : public QMainWindow
@@ -14,6 +15,7 @@ public:
 
 private:
     TodoModel *m_model;
+    QListView *m_todoView;
     QLineEdit *m_todoEdit;
 
 private slots:

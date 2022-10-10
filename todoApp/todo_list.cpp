@@ -3,7 +3,6 @@
 #include <QVBoxLayout>
 #include <QHBoxLayout>
 
-#include <QListView>
 #include <QPushButton>
 
 TodoList::TodoList(QWidget *parent) : QMainWindow(parent)
@@ -17,10 +16,10 @@ TodoList::TodoList(QWidget *parent) : QMainWindow(parent)
     container->setLayout(mainLayout);
     setCentralWidget(container);
 
-    QListView *todoView = new QListView(this);
-    todoView->setSelectionMode(QAbstractItemView::SelectionMode::SingleSelection);
-    todoView->setModel(m_model);
-    mainLayout->addWidget(todoView);
+    m_todoView = new QListView(this);
+    m_todoView->setSelectionMode(QAbstractItemView::SelectionMode::SingleSelection); // Default ?
+    m_todoView->setModel(m_model);
+    mainLayout->addWidget(m_todoView);
 
     QHBoxLayout *buttonLayout = new QHBoxLayout();
     QPushButton *deleteButton = new QPushButton("Delete", this);
@@ -41,12 +40,34 @@ TodoList::TodoList(QWidget *parent) : QMainWindow(parent)
 
 void TodoList::add_btn()
 {
+    QString text = m_todoEdit->text();
+    m_todoEdit->setText("");
+
+    m_model->add_todo(text);
+    emit(m_model->layoutChanged());
 }
 
 void TodoList::delete_btn()
 {
+    QModelIndexList indexes = m_todoView->selectionModel()->selectedIndexes();
+
+    if (!indexes.empty())
+    {
+        QModelIndex index = indexes.at(0); // SingleSelection so only one index selected
+        m_model->delete_todo(index.row());
+        emit(m_model->layoutChanged());
+        m_todoView->clearSelection();
+    }
 }
 
 void TodoList::complete_btn()
 {
+    QModelIndexList indexes = m_todoView->selectionModel()->selectedIndexes();
+
+    if (!indexes.empty())
+    {
+        QModelIndex index = indexes.at(0); // SingleSelection so only one index selected
+        m_model->complete_todo(index.row());
+        emit(m_model->layoutChanged());
+    }
 }

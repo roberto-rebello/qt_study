@@ -32,14 +32,17 @@ int TodoModel::rowCount(const QModelIndex &parent) const
 void TodoModel::add_todo(QString newTodo)
 {
     todos.push_back(std::make_tuple<bool, QString>(false, QString(newTodo))); // ??
+    qDebug() << "Added new todo: " << newTodo;
 }
 
 void TodoModel::delete_todo(int index)
 {
     todos.erase(todos.begin() + index);
+    qDebug() << "Deleted item at index " << index;
 }
 
 void TodoModel::complete_todo(int index)
 {
     std::get<0>(todos.at(index)) = true;
+    qDebug() << "Item at index " << index << "was complete";
 }
