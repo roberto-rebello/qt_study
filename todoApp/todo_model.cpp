@@ -4,6 +4,9 @@ TodoModel::TodoModel(QObject *parent) : QAbstractListModel(parent)
 {
     todos = {std::make_tuple<bool, QString>(true, "Create initial todoApp"),
              std::make_tuple<bool, QString>(false, "Finish todoApp")};
+
+    done_img = QImage("icons/tick.png");
+    todo_img = QImage("icons/cross.png");
 }
 
 QVariant TodoModel::data(const QModelIndex &index, int role) const
@@ -17,7 +20,7 @@ QVariant TodoModel::data(const QModelIndex &index, int role) const
     }
     else if (role == Qt::ItemDataRole::DecorationRole)
     {
-        return status;
+        return status ? done_img : todo_img;
     }
 
     return QVariant();

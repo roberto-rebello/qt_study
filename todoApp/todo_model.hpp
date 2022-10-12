@@ -2,6 +2,8 @@
 
 #include <tuple>
 
+#include <QImage>
+
 class TodoModel : public QAbstractListModel
 {
 
@@ -9,6 +11,8 @@ class TodoModel : public QAbstractListModel
 
 private:
     std::vector<std::tuple<bool, QString>> todos;
+    QImage done_img;
+    QImage todo_img;
 
 public:
     TodoModel(QObject *parent = nullptr);
