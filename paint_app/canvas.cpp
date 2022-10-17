@@ -5,7 +5,7 @@
 
 Canvas::Canvas(QWidget *parent) : QLabel(parent)
 {
-    QPixmap canvas(500, 500);
+    QPixmap canvas(600, 600);
     canvas.fill();
     setPixmap(canvas);
 }
