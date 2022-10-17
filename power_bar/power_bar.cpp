@@ -7,7 +7,9 @@ PowerBar::PowerBar(QWidget *parent) : QWidget(parent),
                                       m_dial(new QDial(this))
 {
     m_bar->setObjectName("Bar");
+
     m_dial->setObjectName("Dial");
+    connect(m_dial, &QDial::valueChanged, m_bar, &Bar::trigger_refresh);
 
     QVBoxLayout *layout = new QVBoxLayout();
     setLayout(layout);

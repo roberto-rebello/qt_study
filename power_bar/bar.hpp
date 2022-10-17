@@ -8,6 +8,9 @@ class Bar : public QWidget
 public:
     Bar(QWidget *parent = nullptr);
 
+public slots:
+    void trigger_refresh();
+
 private:
     void paintEvent(QPaintEvent *event);
 };

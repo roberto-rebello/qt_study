@@ -36,3 +36,8 @@ void Bar::paintEvent(QPaintEvent *event)
 
     painter.end();
 }
+
+void Bar::trigger_refresh()
+{
+    update();
+}
