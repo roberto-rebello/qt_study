@@ -7,6 +7,7 @@ PaintApp::PaintApp(QWidget *parent) : QMainWindow(parent),
                                       m_canvas(new Canvas())
 {
     setWindowTitle("Paint App");
+    setFixedSize(618, 648);
 
     QVBoxLayout *layout = new QVBoxLayout();
     QWidget *container = new QWidget(this);
