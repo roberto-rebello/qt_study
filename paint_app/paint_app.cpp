@@ -41,6 +41,8 @@ PaintApp::PaintApp(QWidget *parent) : QMainWindow(parent),
     for (std::string color : colors)
     {
         PaletteButton *paletteButton = new PaletteButton(color);
+        connect(paletteButton, &QPushButton::pressed, this, [this, color]()
+                { m_canvas->setPenColor(QColor(color.c_str())); });
         colorPalette->addWidget(paletteButton);
     }
 
