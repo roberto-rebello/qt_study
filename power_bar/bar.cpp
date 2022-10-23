@@ -3,6 +3,7 @@
 #include <QPainter>
 
 #include <QDial>
+#include <QMouseEvent>
 
 Bar::Bar(QWidget *parent) : QWidget(parent),
                             m_numBars(10)
@@ -106,4 +107,32 @@ void Bar::paintEvent(QPaintEvent *event)
 void Bar::trigger_refresh()
 {
     update();
+}
+
+void Bar::mouseMoveEvent(QMouseEvent *e)
+{
+    calculate_clicked_value(e);
+}
+
+void Bar::mousePressEvent(QMouseEvent *e)
+{
+    calculate_clicked_value(e);
+}
+
+void Bar::calculate_clicked_value(QMouseEvent *e)
+{
+    QDial *dial = parent()->findChild<QDial *>("Dial");
+    float vmin = dial->minimum();
+    float vmax = dial->maximum();
+
+    float padding = size().width() * m_padding;
+    float height = size().height() - (padding * 2);
+    float bar_size = height / m_numBars;
+
+    float click_y = e->position().y() - padding - bar_size / 2;
+
+    float bar_percent = (height - click_y) / height;
+    int value = vmin + bar_percent * (vmax - vmin);
+
+    emit(clickedValue(value));
 }

@@ -35,6 +35,7 @@ void PowerBar::init_powerbar()
 
     m_dial->setObjectName("Dial");
     connect(m_dial, &QDial::valueChanged, m_bar, &Bar::trigger_refresh);
+    connect(m_bar, &Bar::clickedValue, m_dial, &QDial::setValue);
 
     QVBoxLayout *layout = new QVBoxLayout();
     setLayout(layout);

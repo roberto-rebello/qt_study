@@ -18,8 +18,17 @@ public:
 
     void set_default_bar_color(QColor color);
 
+    void mouseMoveEvent(QMouseEvent *e);
+
+    void mousePressEvent(QMouseEvent *e);
+
+    void calculate_clicked_value(QMouseEvent *e);
+
 public slots:
     void trigger_refresh();
+
+signals:
+    void clickedValue(int value);
 
 private:
     void init();
